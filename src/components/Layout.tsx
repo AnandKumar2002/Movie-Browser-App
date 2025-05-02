@@ -85,7 +85,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </header>
 
       {/* Content */}
-      <main className="flex-1 bg-gray-50 p-6">{children}</main>
+      <main className="flex-1 p-4  bg-gray-900">{children}</main>
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white p-4 mt-auto">
