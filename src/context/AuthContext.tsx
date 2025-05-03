@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
       setIsAuthenticated(true);
+      setUser(user);
       return true;
     }
     return false;

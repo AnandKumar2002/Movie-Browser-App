@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import {
+  Card,
+  Title,
+  Input,
+  Button,
+  FooterText,
+  LinkText,
+} from "../components/styleComponents/StyledAuthUI";
+import { StyledContainer } from "./welcome/Welcome.styles";
 
 export default function Register() {
   const [form, setForm] = useState<{ email: string; password: string }>({
@@ -24,7 +33,7 @@ export default function Register() {
       return;
     }
 
-    const success = register(email, password); // This will now be a boolean
+    const success = register(email, password);
 
     if (success) {
       alert("User registered successfully!");
@@ -35,49 +44,33 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
-        <h2 className="text-2xl font-semibold text-center mb-6">Register</h2>
+    <StyledContainer>
+      <Card>
+        <Title>Register</Title>
 
-        {/* Email Input */}
-        <input
+        <Input
           type="email"
           name="email"
           value={form.email}
           onChange={handleChange}
           placeholder="Email"
-          className="w-full px-4 py-2 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
-        {/* Password Input */}
-        <input
+        <Input
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
           placeholder="Password"
-          className="w-full px-4 py-2 border rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
-        {/* Register Button */}
-        <button
-          onClick={handleRegister}
-          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-        >
-          Register
-        </button>
+        <Button onClick={handleRegister}>Register</Button>
 
-        {/* Redirect to Login */}
-        <p className="mt-4 text-center text-sm">
+        <FooterText>
           Already have an account?{" "}
-          <span
-            onClick={() => navigate("/login")}
-            className="text-blue-600 cursor-pointer hover:underline"
-          >
-            Login here
-          </span>
-        </p>
-      </div>
-    </div>
+          <LinkText onClick={() => navigate("/login")}>Login here</LinkText>
+        </FooterText>
+      </Card>
+    </StyledContainer>
   );
 }

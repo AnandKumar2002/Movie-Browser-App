@@ -2,14 +2,14 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import { useAuth } from "./context/AuthContext";
-import Welcome from "./pages/Welcome";
+import Welcome from "./pages/welcome/Welcome";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
-import MovieDetails from "./pages/MovieDetails";
-import Favorites from "./pages/Favorites";
-import Layout from "./components/Layout";
-import PageNotFound from "./pages/PageNotFound";
+import Home from "./pages/home/Home";
+import MovieDetails from "./pages/movieDetails/MovieDetails";
+import Favorites from "./pages/favorites/Favorites";
+import Layout from "./components/layout/Layout";
+import PageNotFound from "./pages/pageNotFound/PageNotFound";
 
 function App() {
   const { isAuthenticated } = useAuth();

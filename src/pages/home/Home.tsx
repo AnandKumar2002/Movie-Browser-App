@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { getMovies } from "../services/movieService";
-import MovieBox from "../components/MovieBox";
-import NoMoviesFound from "../components/NoMoviesFound";
+import { getMovies } from "../../services/movieService";
+import MovieBox from "../../components/movieBox/MovieBox";
+import NoMoviesFound from "../../components/noMoviesFound/NoMoviesFound";
+import {
+  SearchInput,
+  PaginationWrapper,
+  PaginationButton,
+  PageButton,
+  LoadingText,
+  NoMoviesWrapper,
+  SearchContainer,
+  Ellipsis
+} from "./Home.styles";
+import { Grid } from "../favorites/Favorites.styles";
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<any[]>([]);
@@ -30,27 +41,26 @@ const Home: React.FC = () => {
   const totalPages = Math.ceil(totalResults / 10);
 
   return (
-    <div className="sm:px-6 sm:py-4 p-0">
-      <div className="mb-6">
-        <input
+    <>
+      <SearchContainer>
+        <SearchInput
           type="text"
           value={searchTerm}
           onChange={handleSearchChange}
           placeholder="Search for movies"
-          className="p-2 rounded-md bg-gray-700 text-white w-full"
         />
-      </div>
+      </SearchContainer>
 
       {loading ? (
-        <div className="text-center text-white">Loading...</div>
+        <LoadingText>Loading...</LoadingText>
       ) : (
         <>
           {movies.length === 0 ? (
-            <div className="flex justify-center items-center h-96">
+            <NoMoviesWrapper>
               <NoMoviesFound />
-            </div>
+            </NoMoviesWrapper>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <Grid>
               {movies.map((movie) => (
                 <MovieBox
                   key={movie.imdbID}
@@ -60,55 +70,47 @@ const Home: React.FC = () => {
                   movieID={movie.imdbID}
                 />
               ))}
-            </div>
+            </Grid>
           )}
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="mt-8 flex justify-center items-center gap-2 flex-wrap text-white">
-              <button
+            <PaginationWrapper>
+              <PaginationButton
                 disabled={page === 1}
                 onClick={() => setPage((p) => p - 1)}
-                className="px-4 py-2 bg-gray-600 rounded disabled:opacity-50"
               >
                 Previous
-              </button>
+              </PaginationButton>
 
               {[...Array.from(Array(totalPages).keys())]
                 .slice(0, 5)
                 .map((i) => {
                   const pageNum = i + 1;
                   return (
-                    <button
+                    <PageButton
                       key={pageNum}
                       onClick={() => setPage(pageNum)}
-                      className={`px-4 py-2 rounded ${
-                        page === pageNum
-                          ? "bg-yellow-500 text-black"
-                          : "bg-gray-700"
-                      }`}
+                      $isactive={page === pageNum}
                     >
                       {pageNum}
-                    </button>
+                    </PageButton>
                   );
                 })}
 
-              {totalPages > 5 && (
-                <span className="text-gray-400 ml-2">...</span>
-              )}
+              {totalPages > 5 && <Ellipsis>...</Ellipsis>}
 
-              <button
+              <PaginationButton
                 disabled={page === totalPages}
                 onClick={() => setPage((p) => p + 1)}
-                className="px-4 py-2 bg-gray-600 rounded disabled:opacity-50"
               >
                 Next
-              </button>
-            </div>
+              </PaginationButton>
+            </PaginationWrapper>
           )}
         </>
       )}
-    </div>
+    </>
   );
 };
 

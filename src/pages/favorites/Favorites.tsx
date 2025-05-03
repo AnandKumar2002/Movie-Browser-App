@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { getFavoriteMoviesByUser } from "../services/movieService";
-import MovieBox from "../components/MovieBox";
+import { useAuth } from "../../context/AuthContext";
+import { getFavoriteMoviesByUser } from "../../services/movieService";
+import MovieBox from "../../components/movieBox/MovieBox";
+import {
+  Wrapper,
+  Title,
+  Message,
+  Grid,
+} from "./Favorites.styles";
+
 
 const Favorites: React.FC = () => {
   const { user } = useAuth();
@@ -31,27 +38,23 @@ const Favorites: React.FC = () => {
   }, [userEmail]);
 
   if (!userEmail) {
-    return (
-      <div className="p-6 text-white text-center">
-        Please log in to view your favorite movies.
-      </div>
-    );
+    return <Message>Please log in to view your favorite movies.</Message>;
   }
 
   return (
-    <div className="p-6 bg-gray-900 min-h-screen">
-      <h1 className="text-2xl text-white mb-4">
+    <Wrapper>
+      <Title>
         Your Favorite Movies{" "}
         {!loading && favoriteMovies.length > 0 && (
-          <span className="text-yellow-400">({favoriteMovies.length})</span>
+          <span>({favoriteMovies.length})</span>
         )}
-      </h1>
+      </Title>
       {loading ? (
-        <div className="text-white text-center">Loading favorites...</div>
+        <Message>Loading favorites...</Message>
       ) : favoriteMovies.length === 0 ? (
-        <div className="text-white text-center">No favorite movies found.</div>
+        <Message>No favorite movies found.</Message>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <Grid>
           {favoriteMovies.map((movie) => (
             <MovieBox
               key={movie.imdbID}
@@ -61,10 +64,11 @@ const Favorites: React.FC = () => {
               movieID={movie.imdbID}
             />
           ))}
-        </div>
+        </Grid>
       )}
-    </div>
+    </Wrapper>
   );
+  
 };
 
 export default Favorites;
