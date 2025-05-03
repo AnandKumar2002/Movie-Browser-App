@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const StyledContainer = styled.div`
   height: 100vh;
   width: 100%;
-  background-image: url('/movie-background-collage.avif');
+  background-image: url(${process.env.PUBLIC_URL + '/movie-background-collage.avif'});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

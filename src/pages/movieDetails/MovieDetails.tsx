@@ -72,7 +72,11 @@ const MovieDetails: React.FC = () => {
       <Content>
         <div>
           <Poster
-            src={movie.Poster !== "N/A" ? movie.Poster : "/default-image.jpg"}
+            src={
+              movie.Poster !== "N/A"
+                ? movie.Poster
+                : `${process.env.PUBLIC_URL}/default-image.jpg`
+            }
             alt={movie.Title}
           />
         </div>
@@ -100,10 +104,7 @@ const MovieDetails: React.FC = () => {
               ))}
             </RatingsList>
           </div>
-          <FavoriteButton
-            onClick={handleFavoriteToggle}
-            $isFavorite={favorite}
-          >
+          <FavoriteButton onClick={handleFavoriteToggle} $isFavorite={favorite}>
             {favorite ? "Remove from Favorites" : "Add to Favorites"}
           </FavoriteButton>
         </div>
@@ -112,7 +113,14 @@ const MovieDetails: React.FC = () => {
       <div>
         <SectionTitle>Top Movies</SectionTitle>
         {topMovies.length === 0 ? (
-          <div style={{ height: "24rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div
+            style={{
+              height: "24rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <NoMoviesFound />
           </div>
         ) : (

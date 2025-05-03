@@ -45,7 +45,11 @@ const MovieBox: React.FC<MovieBoxProps> = ({
   return (
     <Card>
       <Poster
-        src={poster !== "N/A" ? poster : "/default-image.jpg"}
+        src={
+          poster !== "N/A"
+            ? poster
+            : `${process.env.PUBLIC_URL}/default-image.jpg`
+        }
         alt={title}
       />
       <Title className={favorite ? "favorite" : ""}>{title}</Title>

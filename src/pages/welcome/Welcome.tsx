@@ -4,7 +4,7 @@ import { StyledContainer, Title, Subtitle, StyledLink, ButtonContainer, Illustra
 export default function Welcome() {
   return (
     <StyledContainer>
-      <Illustration src="/movie-background-collage.avif" alt="Welcome Illustration" />
+      <Illustration src={`${process.env.PUBLIC_URL}/movie-background-collage.avif`} alt="Welcome Illustration" />
       <Title>Welcome to Movie Browser</Title>
       <Subtitle>Explore, discover, and favorite your best-loved movies.</Subtitle>
       <p>Please login or register to continue using the website.</p>
